@@ -6,7 +6,7 @@
 Obj(object).       //宏，将变量切换为对象，使用 . 进行后续访问
 ObjRef(pObject)->    //宏，将指针变量切换为对象引用，使用 -> 进行后续访问 
 _this               //当前对象指针,20170722更新后不建议直接使用，建议使用THIS(type)
-THIS(type)      //宏，自动生成一个类型为type的this指针,注意表面该宏暴露在大作用域上
+THIS(type)      //宏，自动生成一个类型为type的this指针,注意避免该宏暴露在大作用域上
 ThisRelease()	//多线程下使用，用于清空当前线程下的this指针Cache
 ```
 
