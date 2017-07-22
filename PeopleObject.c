@@ -97,7 +97,7 @@ const char* People_toString(void)
     THIS(People);
     if(this->extra == NULL)
     {
-        this->extra = (char*)malloc(128);
+        Set_New_Array(char, this->extra, 128);
     }
 
     if(this->extra == NULL)

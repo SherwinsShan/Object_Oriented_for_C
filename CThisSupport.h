@@ -35,6 +35,9 @@ extern void* _this;
 #define New_Item(type,name)     type* name = (type*)malloc(sizeof(type))
 #define New_Array(type,name,n)  type* name = (type*)malloc(sizeof(type)*(n))
 
+#define Set_New_Item(type,name)    name = (type*)malloc(sizeof(type))
+#define Set_New_Array(type,name,n)  name = (type*)malloc(sizeof(type)*(n))
+
 #define THIS(type)	 type *const this = (type *const) _this
 
 
