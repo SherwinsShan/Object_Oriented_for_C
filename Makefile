@@ -1,6 +1,6 @@
-TARGET=objectTest
+TARGET=Test
 
-SOURCE=objectTest.c CThisSupport.c testInterface.c
+SOURCE=PeopleObjectTest.c CThisSupport.c PeopleObject.c
 
 CFLAG=-lpthread -D THIS_PTHREAD_SUPPORT
 

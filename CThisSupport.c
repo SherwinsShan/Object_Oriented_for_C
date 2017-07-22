@@ -9,11 +9,7 @@ static struct thisStack
 	struct thisStack* next;
 }thisStackHead = {NULL, 0, NULL};
 
-void ThisSuppost(void)
-{
-	thisStackHead.tid = pthread_self();
-}
-
+	
 void setThis(void* t)
 {
 	struct thisStack* temp = &thisStackHead;
@@ -23,25 +19,26 @@ void setThis(void* t)
 		if(temp->tid == pthread_self())
 		{
 			temp->thisContext = t;
-			return ;
+			break ;
 		}
-		
-		if(temp->next == NULL)
+		else if(temp->next == NULL)
 		{
-			struct thisStack* newNode = (struct thisStack*) malloc(sizeof(struct thisStack));
+			New_Item(struct thisStack, newNode);
 			newNode->thisContext = t;
 			newNode->tid = pthread_self();
 			newNode->next = NULL;
 			temp->next = newNode;
-			return ;
+			break ;
 		}
+
 		temp = temp->next;
 	}
+	
 }
 
 void* getThis(void)
 {
-	struct thisStack* temp = &thisStackHead;
+	struct thisStack* temp = thisStackHead.next;
 	while(temp)
 	{
 		if(temp->tid == pthread_self())
@@ -53,6 +50,30 @@ void* getThis(void)
 	assert(0 && "Cannot Found this");
 	return NULL;
 }
+
+void ThisRelease(void)
+{
+	struct thisStack* temp = thisStackHead.next;
+
+	if(temp == NULL)
+		return;
+
+	struct thisStack* tempNext = temp->next;
+
+	while(tempNext)
+	{
+		if(tempNext->tid == pthread_self())
+		{
+			temp->next = tempNext->next;
+			free(tempNext);
+			break;
+		}
+		
+		temp = temp->next;
+		tempNext = temp->next;
+	}
+}
+
 #else
 void* _this;
 #endif
